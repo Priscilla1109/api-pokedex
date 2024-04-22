@@ -13,15 +13,15 @@ public class PokedexController {
             1, "bulbasaur"
     );
 
-    @GetMapping("/api/v2/pokemon/{name}")
-    public String getPokemonByName(@PathVariable("name") String name) {
-        for (Map.Entry<Integer, String> entry : pokemons.entrySet()) {
-            if (entry.getValue().equalsIgnoreCase(name)) {
-                return entry.getValue();
-            }
-        }
-        return "Pokemon not found";
-    }
+//    @GetMapping("/api/v2/pokemon/{name}")
+//    public String getPokemonByName(@PathVariable("name") String name) {
+//        for (Map.Entry<Integer, String> entry : pokemons.entrySet()) {
+//            if (entry.getValue().equalsIgnoreCase(name)) {
+//                return entry.getValue();
+//            }
+//        }
+//        return "Pokemon not found";
+//    }
 
     @GetMapping("/api/v2/pokemon/{number}")
     public String getPokemonByNumber(@PathVariable("number") Integer number) {
