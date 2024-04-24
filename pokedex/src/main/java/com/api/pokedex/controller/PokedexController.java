@@ -1,9 +1,8 @@
 package com.api.pokedex.controller;
 
-import com.api.pokedex.model.EvolutionChain;
-import com.api.pokedex.model.Pokemon;
-import com.api.pokedex.model.PokemonPageResponse;
+import com.api.pokedex.model.*;
 import com.api.pokedex.service.PokeApiService;
+import com.api.pokedex.service.PokemonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,22 +10,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/pokedex")
+@RequestMapping("/api-pokedex/v2")
 public class PokedexController {
     @Autowired
     private PokeApiService pokeApiService;
 
-    @GetMapping("/pokemon/{name}")
-    public ResponseEntity<Pokemon> getPokemonByName(@PathVariable("name") String name) {
-        Pokemon pokemon = pokeApiService.getPokemonByName(name);
-        return ResponseEntity.ok(pokemon);
-    }
-
-    @GetMapping("/evolution-chain/{id}")
-    public ResponseEntity<EvolutionChain> getPokemonByNumber(@PathVariable("number") Long number) {
-        EvolutionChain evolutionChain = pokeApiService.getEvolutionChainByNumber(number);
-        return ResponseEntity.ok(evolutionChain);
-    }
+    @Autowired
+    private PokemonService pokemonService;
 
     @GetMapping("/pokemons")
     public ResponseEntity<PokemonPageResponse> listPokemons(
@@ -34,5 +24,23 @@ public class PokedexController {
             @RequestParam(defaultValue = "10") int pageSize) {
         PokemonPageResponse pokemonPageResponse = pokeApiService.listPokemons(page, pageSize);
         return ResponseEntity.ok(pokemonPageResponse);
+    }
+
+    @GetMapping("/pokemon/{nameOrNumber}")
+    public ResponseEntity<PokemonResponse> getPokemonByNameOrNumber(@PathVariable String nameOrNumber) {
+        PokemonResponse pokemon = pokemonService.getPokemonByNameOrNumber(nameOrNumber);
+        return ResponseEntity.ok(pokemon);
+    }
+
+    @GetMapping("/pokemon-species/{name}")
+    public ResponseEntity<Species> getSpeciesByName(@PathVariable String name) {
+        Species species = pokemonService.getSpeciesByName(name);
+        return ResponseEntity.ok(species);
+    }
+
+    @GetMapping("/evolution-chain/{id}")
+    public ResponseEntity<EvolutionChain> getEvolutionChainById(@PathVariable Long id) {
+        EvolutionChain chain = pokemonService.getEvolutionChainById(id);
+        return ResponseEntity.ok(chain);
     }
 }
