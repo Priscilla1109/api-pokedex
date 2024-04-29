@@ -2,10 +2,12 @@ package com.api.pokedex.model;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class PokemonResponse {
     private Long number;
     private String name;
-    private String type;
+    private List<String> type;
     private String imageUrl;
 }
