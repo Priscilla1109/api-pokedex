@@ -17,36 +17,27 @@ public class PokeApiService {
     @Autowired
     private RestTemplate restTemplate;
 
-    private final Map<Integer, String> pokemons = Map.of(
-            1, loadPokemon("bulbasaur")
-            );
-
-    @SneakyThrows
-    private static String loadPokemon(final String name) {
-        return new String(new ClassPathResource("/data/" + name + "/Pokemon.json").getInputStream().readAllBytes());
-    }
-
-    @Value("http://localhost:8083/APIs/pokedex/") //injeta a url base da PokeAPI
+    @Value("${pokeapi.baseurl}")
     private String baseUrl;
 
-    public Pokemon getPokemonByName(String name){
+    public PokeApiService() {}
+
+    public Pokemon getPokemonByName(String name) {
         String url = baseUrl + "/pokemon/" + name;
         ResponseEntity<Pokemon> response = restTemplate.getForEntity(url, Pokemon.class);
-
         return response.getBody();
     }
 
-    public EvolutionChain getEvolutionChainByNumber(Long number){
+    public EvolutionChain getEvolutionChainByNumber(Long number) {
         String url = baseUrl + "/evolution-chain/" + number;
         ResponseEntity<EvolutionChain> response = restTemplate.getForEntity(url, EvolutionChain.class);
-
         return response.getBody();
     }
 
-    public PokemonPageResponse listPokemons(int page, int pageSize){
+    public PokemonPageResponse listPokemons(int page, int pageSize) {
         String url = baseUrl + "/pokemons?page=" + page + "&pageSize=" + pageSize;
         ResponseEntity<PokemonPageResponse> response = restTemplate.getForEntity(url, PokemonPageResponse.class);
-
         return response.getBody();
     }
 }
+

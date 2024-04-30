@@ -3,3 +3,7 @@ spring:
     name:pokedex
 server:
   port: 8083
+
+# Configurações da PokeAPI
+pokeapi:
+  baseurl: http://localhost:8083/APIs/pokedex/
