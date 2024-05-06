@@ -31,16 +31,4 @@ public class PokedexController {
         PokemonResponse pokemon = pokemonService.getPokemonByNameOrNumber(nameOrNumber);
         return ResponseEntity.ok(pokemon);
     }
-
-//    @GetMapping("/pokemon-species/{name}")
-//    public ResponseEntity<Species> getSpeciesByName(@PathVariable String name) {
-//        Species species = pokemonService.getSpeciesByName(name);
-//        return ResponseEntity.ok(species);
-//    }
-//
-//    @GetMapping("/evolution-chain/{id}")
-//    public ResponseEntity<EvolutionChain> getEvolutionChainById(@PathVariable Long id) {
-//        EvolutionChain chain = pokemonService.getEvolutionChainById(id);
-//        return ResponseEntity.ok(chain);
-//    }
 }

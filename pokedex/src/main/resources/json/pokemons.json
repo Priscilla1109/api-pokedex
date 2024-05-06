@@ -1,4 +1,5 @@
 {
+  //TODO: refatorar o json para separar os pokemons na listagem evolutions e excluir a evolutionDetail
   "pokemons": [
     {
       "number": 1,
@@ -17,27 +18,19 @@
             "Poison"
           ],
           "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/2.png",
+        },
+        {
+          "number": 3,
+          "name": "Venusaur",
+          "type": [
+            "Grass",
+            "Poison"
+          ],
+          "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/3.png",
           "evolutionDetails": [
             {
               "triggerName": "Level up",
-              "minLevel": 16
-            }
-          ],
-          "evolutions": [
-            {
-              "number": 3,
-              "name": "Venusaur",
-              "type": [
-                "Grass",
-                "Poison"
-              ],
-              "imageUrl": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/3.png",
-              "evolutionDetails": [
-                {
-                  "triggerName": "Level up",
-                  "minLevel": 32
-                }
-              ]
+              "minLevel": 32
             }
           ]
         }
