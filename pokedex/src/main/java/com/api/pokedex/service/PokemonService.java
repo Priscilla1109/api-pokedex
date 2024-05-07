@@ -13,12 +13,6 @@ import java.util.List;
 
 @Service
 public class PokemonService {
-
-    private static final String JSON_FOLDER = "/src/main/resources/json/pokemons.json";
-
-    @Autowired
-    private RestTemplate restTemplate;
-
     @Autowired
     private ObjectMapper objectMapper;
 
@@ -36,31 +30,12 @@ public class PokemonService {
             return pokemons.stream()
                     .filter(it -> it.getNumber().equals(number))
                     .findFirst()
-                    .orElseThrow(() -> new PokemonNotFoundException("Pokemon not found with name or number: " + nameOrNumber));
+                    .orElseThrow(() -> new PokemonNotFoundException("Pokemon not found with number: " + nameOrNumber));
         } catch (NumberFormatException e) {
             return pokemons.stream()
-                    .filter(it -> it.getName().equals(nameOrNumber))
+                    .filter(it -> it.getName().equalsIgnoreCase(nameOrNumber))
                     .findFirst()
-                    .orElseThrow(() -> new PokemonNotFoundException("Pokemon not found with name or number: " + nameOrNumber));
+                    .orElseThrow(() -> new PokemonNotFoundException("Pokemon not found with name: " + nameOrNumber));
         }
     }
-
-//    public Species getSpeciesByName(String name) {
-//        try {
-//            String speciesJson = loadJsonFromFile(name.toLowerCase());
-//            return objectMapper.readValue(speciesJson, Species.class);
-//        } catch (IOException e) {
-//            throw new PokemonNotFoundException("Species not found with name: " + name);
-//        }
-//    }
-//
-//    public EvolutionChain getEvolutionChainById(Long id) {
-//        try {
-//            String evolutionJson = loadJsonFromFile("evolution_" + id);
-//            return objectMapper.readValue(evolutionJson, EvolutionChain.class);
-//        } catch (IOException e) {
-//            throw new EvolutionChainNotFoundException("Evolution chain not found with id: " + id);
-//        }
-//    }
-
 }

@@ -1,9 +1,11 @@
 package com.api.pokedex.controller;
 
+import com.api.pokedex.exception.PokemonNotFoundException;
 import com.api.pokedex.model.*;
 import com.api.pokedex.service.PokeApiService;
 import com.api.pokedex.service.PokemonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
