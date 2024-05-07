@@ -19,21 +19,26 @@ public class PokemonService {
     public PokemonResponse getPokemonByNameOrNumber(String nameOrNumber) {
         List<PokemonResponse> pokemons;
         try {
+            // Carrega a lista de Pokémons a partir do arquivo JSON
             var type = objectMapper.getTypeFactory().constructCollectionType(List.class, PokemonResponse.class);
             pokemons = JsonUtil.loadCollection("json/pokemons.json", type, objectMapper);
         } catch (IOException e) {
-            throw new PokemonNotFoundException("Pokemon not found with name or number: " + nameOrNumber);
+            // Se houver um erro ao carregar os Pokémons, lança uma exceção
+            throw new PokemonNotFoundException("Failed to load Pokémon data");
         }
 
+        // Tenta converter o nomeOrNumber para número
         try {
-            var number = Long.parseLong(nameOrNumber);
+            long number = Long.parseLong(nameOrNumber);
+            // Se conseguiu converter para número, busca pelo número do Pokémon
             return pokemons.stream()
-                    .filter(it -> it.getNumber().equals(number))
+                    .filter(pokemon -> pokemon.getNumber() == number)
                     .findFirst()
-                    .orElseThrow(() -> new PokemonNotFoundException("Pokemon not found with number: " + nameOrNumber));
+                    .orElseThrow(() -> new PokemonNotFoundException("Pokemon not found with number: " + number));
         } catch (NumberFormatException e) {
+            // Se não conseguiu converter para número, busca pelo nome do Pokémon
             return pokemons.stream()
-                    .filter(it -> it.getName().equalsIgnoreCase(nameOrNumber))
+                    .filter(pokemon -> pokemon.getName().equalsIgnoreCase(nameOrNumber))
                     .findFirst()
                     .orElseThrow(() -> new PokemonNotFoundException("Pokemon not found with name: " + nameOrNumber));
         }
